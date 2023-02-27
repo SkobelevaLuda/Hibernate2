@@ -19,13 +19,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private static final String FIND_ALL = "SELECT * FROM employee ";
     private static final String UPDATE = "UPDATE employee SET name=?, surname = ?, gender= ?, age = ?, city_id = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM employee WHERE id = ?";*/
-    //private final CityDao cityDao = new CityDaoImpl();
+    private final CityDao cityDao = new CityDaoImpl();
 
     @Override
     public Employee create(Employee employee) {
-        /*if (employee.getCity()!= null && cityDao.findById(employee.getCity()).isEmpty()){
+        if (employee.getCity()!= null && cityDao.readById(employee.getCity().getCityId()).isEmpty()){
             employee.setCity(null);
-        }*/
+        }
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             Serializable createdId = session.save(employee);
@@ -46,15 +46,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> readAll() {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Employee ",
-                    Employee.class).list();
+            return session.createQuery("FROM Employee ", Employee.class).list();
         }
     }
     @Override
     public Employee updateById(Employee employee) {
-        /*if (employee.getCity()!= null && cityDao.findById(employee.getCity()).isEmpty()) {
+        if (employee.getCity()!= null && cityDao.readById(employee.getCity().getCityId()).isEmpty()) {
             employee.setCity(null);
-        }*/
+        }
         EntityManager entityManager = HibernateSessionFactoryUtil.getSessionFactory()
                 .createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();

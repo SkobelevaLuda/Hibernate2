@@ -11,10 +11,10 @@ public class Application {
         City tula= new City(3,"Тула");
         City kaluga = new City(4, "Калуга");
 
-        Employee manua = employeeDao.create(new Employee("Маня", "Федотова","жен", 22, 3L));
+        Employee manua = employeeDao.create(new Employee("Маня", "Федотова","жен", 22));
         System.out.println("Добавлен сотрудник" + manua);
-        Employee vika = employeeDao.create(new Employee("Вика", "Сидорова","жен", 25, 4L));
-        System.out.println("Добавлен сотрудник" + vika);;
+        Employee vika = employeeDao.create(new Employee("Вика", "Сидорова","жен", 25));
+        System.out.println("Добавлен сотрудник" + vika);
 
         System.out.println( "Все сотрудники ");
         employeeDao.readAll().forEach(System.out::println);
@@ -24,7 +24,6 @@ public class Application {
 
         vika.setName("Катя");
         vika.setAge(45);
-        vika.setCity(3L);
         vika = employeeDao.updateById(vika);
         System.out.println("Обновленный сотрудник " + vika);
 

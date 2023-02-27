@@ -21,7 +21,7 @@ public class Employee {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Employee(long id, String name, String surname, String gender, int age,  City city) {
+    public Employee(String name, String surname, String gender, int age) {
 
     }
 
