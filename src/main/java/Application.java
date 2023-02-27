@@ -1,37 +1,29 @@
+import dao.CityDao;
 import dao.EmployeeDao;
+import dao.impl.CityDaoImpl;
 import dao.impl.EmployeeDaoImpl;
 import model.City;
 import model.Employee;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
 
         EmployeeDao employeeDao = new EmployeeDaoImpl();
-        City tula= new City(3,"Тула");
-        City kaluga = new City(4, "Калуга");
-
-        Employee manua = employeeDao.create(new Employee(4,"Маня", "Федотова","жен", 22,tula));
-        System.out.println("Добавлен сотрудник" + manua);
-        Employee vika = employeeDao.create(new Employee(5,"Вика", "Сидорова","жен", 25,kaluga));
-        System.out.println("Добавлен сотрудник" + vika);
-
-        System.out.println( "Все сотрудники ");
-        employeeDao.readAll().forEach(System.out::println);
-
-        employeeDao.readById(vika.getId())
-                .ifPresent(employee -> System.out.println("Найден сотрудник " + employee));
-
-        vika.setName("Катя");
-        vika.setAge(45);
-        vika = employeeDao.updateById(vika);
-        System.out.println("Обновленный сотрудник " + vika);
-
-        employeeDao.deleteById(manua).ifPresent(employee -> System.out.println("Удаленный сотрудник: " +employee));
-
-        System.out.println("Все сотрудники");
-        employeeDao.readAll().forEach(System.out::println);
-
+        CityDao cityDao = new CityDaoImpl();
+        int n = 5;
+        City krasnodar = new City(5, "Краснодар");
+        cityDao.create(krasnodar);
+        List<Employee> employees = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            employees.add(new Employee("Вася " + (i + 2), "Федоров" + (i + 1), "муж", 30 + i,
+                    krasnodar));
+        }
+        krasnodar.setEmployees(employees);
+        cityDao.delete(krasnodar);
     }
+
 
 }

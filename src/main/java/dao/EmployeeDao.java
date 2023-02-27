@@ -9,12 +9,12 @@ public interface EmployeeDao {
 
     Employee create(Employee employee);
 
-    Optional<Employee> readById(long id);
+    Employee readById(Integer id);
 
     List<Employee> readAll();
 
     Employee updateById(Employee employee);
 
-    Optional<Employee> deleteById(Employee employee);
+    void deleteById(Employee employee);
 }
 

@@ -10,10 +10,7 @@ public interface CityDao {
     City create(City city);
 
     Optional<City> readById(long id);
-
-    List<City> readAll();
-
-    City updateById(City city);
-
-    Optional<City> deleteById(City city);
+    List<City> findAll();
+    City update(City city);
+    Optional<City> delete(City city);
 }

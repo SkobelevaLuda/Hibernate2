@@ -3,7 +3,6 @@ package dao.impl;
 import dao.CityDao;
 import dao.HibernateSessionFactoryUtil;
 import model.City;
-import model.Employee;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -18,13 +17,11 @@ public class CityDaoImpl implements CityDao {
     public City create(City city) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            //Serializable createdId = session.save(city);
-           // City createdCity = session.get(City.class, createdId);
-            session.saveOrUpdate(city);
+            Serializable createdId = session.save(city);
+            City createdCity = session.get(City.class, createdId);
             transaction.commit();
-            return city;
+            return createdCity;
         }
-
     }
 
     @Override
@@ -35,27 +32,27 @@ public class CityDaoImpl implements CityDao {
     }
 
     @Override
-    public List<City> readAll() {
+    public List<City> findAll() {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM City ", City.class).list();
         }
     }
 
     @Override
-    public City updateById(City city) {
+    public City update(City city) {
         EntityManager entityManager = HibernateSessionFactoryUtil.getSessionFactory()
                 .createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        City updateById = entityManager.merge(city);
+        City updated = entityManager.merge(city);
         entityTransaction.commit();
-        return updateById;
+        return updated;
     }
 
     @Override
-    public Optional<City> deleteById(City city) {
+    public Optional<City> delete(City city) {
         Optional<City> cityOptional = readById(city.getCityId());
-        if (cityOptional.isPresent()){
+        if (cityOptional.isPresent()) {
             try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
                 Transaction transaction = session.beginTransaction();
                 session.delete(cityOptional.get());
@@ -66,5 +63,3 @@ public class CityDaoImpl implements CityDao {
         return Optional.empty();
     }
 }
-
-
