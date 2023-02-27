@@ -18,10 +18,11 @@ public class CityDaoImpl implements CityDao {
     public City create(City city) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            Serializable createdId = session.save(city);
-            City createdCity = session.get(City.class, createdId);
+            //Serializable createdId = session.save(city);
+           // City createdCity = session.get(City.class, createdId);
+            session.saveOrUpdate(city);
             transaction.commit();
-            return createdCity;
+            return city;
         }
 
     }

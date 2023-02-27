@@ -11,9 +11,9 @@ public class Application {
         City tula= new City(3,"Тула");
         City kaluga = new City(4, "Калуга");
 
-        Employee manua = employeeDao.create(new Employee("Маня", "Федотова","жен", 22));
+        Employee manua = employeeDao.create(new Employee(4,"Маня", "Федотова","жен", 22,tula));
         System.out.println("Добавлен сотрудник" + manua);
-        Employee vika = employeeDao.create(new Employee("Вика", "Сидорова","жен", 25));
+        Employee vika = employeeDao.create(new Employee(5,"Вика", "Сидорова","жен", 25,kaluga));
         System.out.println("Добавлен сотрудник" + vika);
 
         System.out.println( "Все сотрудники ");

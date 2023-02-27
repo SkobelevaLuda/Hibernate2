@@ -23,15 +23,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee create(Employee employee) {
-        if (employee.getCity()!= null && cityDao.readById(employee.getCity().getCityId()).isEmpty()){
+        /*if (employee.getCity()!= null && cityDao.readById(employee.getCity().getCityId()).isEmpty()){
             employee.setCity(null);
-        }
+        }*/
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            Serializable createdId = session.save(employee);
-            Employee createdEmployee = session.get(Employee.class, createdId);
+            //Serializable createdId = session.save(employee);
+           // Employee createdEmployee = session.get(Employee.class, createdId);
+            session.saveOrUpdate(employee);
             transaction.commit();
-            return createdEmployee;
+            return employee;
         }
     }
 
